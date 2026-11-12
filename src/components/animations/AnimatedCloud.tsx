@@ -1,6 +1,7 @@
 interface AnimatedCloudProps {
   size?: number;
   delay?: number;
+  duration?: number;
   className?: string;
   color?: string;
 }
@@ -8,6 +9,7 @@ interface AnimatedCloudProps {
 export default function AnimatedCloud({
   size = 80,
   delay = 0,
+  duration = 6,
   className = '',
   color = 'white',
 }: AnimatedCloudProps) {
@@ -16,7 +18,7 @@ export default function AnimatedCloud({
       className={`inline-block ${className}`}
       style={{
         animationName: 'drift',
-        animationDuration: '6s',
+        animationDuration: `${duration}s`,
         animationDelay: `${delay}s`,
         animationTimingFunction: 'ease-in-out',
         animationIterationCount: 'infinite',

@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import { school } from '@/data/school';
+import { Send, CheckCircle2, Mail } from 'lucide-react';
 
 interface FormData {
   parentName: string;
   childName: string;
-  childDob: string;
+  childAge: string;
   program: string;
   phone: string;
   email: string;
@@ -16,7 +17,7 @@ interface FormData {
 interface FormErrors {
   parentName?: string;
   childName?: string;
-  childDob?: string;
+  childAge?: string;
   program?: string;
   phone?: string;
   email?: string;
@@ -25,7 +26,7 @@ interface FormErrors {
 const initialData: FormData = {
   parentName: '',
   childName: '',
-  childDob: '',
+  childAge: '',
   program: '',
   phone: '',
   email: '',
@@ -41,17 +42,17 @@ export default function EnquiryForm() {
     const newErrors: FormErrors = {};
     if (!formData.parentName.trim()) newErrors.parentName = 'Parent name is required.';
     if (!formData.childName.trim()) newErrors.childName = 'Child name is required.';
-    if (!formData.childDob) newErrors.childDob = 'Date of birth is required.';
+    if (!formData.childAge.trim()) newErrors.childAge = 'Child age or date of birth is required.';
     if (!formData.program) newErrors.program = 'Please select a program.';
     if (!formData.phone.trim()) {
       newErrors.phone = 'Phone number is required.';
-    } else if (!/^[6-9]\d{9}$/.test(formData.phone.replace(/\s/g, ''))) {
-      newErrors.phone = 'Enter a valid 10-digit phone number.';
+    } else if (!/^[6-9]\d{9}$/.test(formData.phone.replace(/[\s-]/g, ''))) {
+      newErrors.phone = 'Please enter a valid 10-digit mobile number.';
     }
     if (!formData.email.trim()) {
       newErrors.email = 'Email address is required.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Enter a valid email address.';
+      newErrors.email = 'Please enter a valid email address.';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -69,165 +70,203 @@ export default function EnquiryForm() {
     e.preventDefault();
     if (!validate()) return;
 
-    const body = `Enquiry from InnoTots Preschool Website\n\nParent Name: ${formData.parentName}\nChild Name: ${formData.childName}\nChild Date of Birth: ${formData.childDob}\nProgram Interested In: ${formData.program}\nPhone: ${formData.phone}\nEmail: ${formData.email}\n\nMessage:\n${formData.message || 'No message provided'}`;
-    const mailtoLink = `mailto:${school.email}?subject=Admission Enquiry – ${formData.childName}&body=${encodeURIComponent(body)}`;
+    const body = `Admission Enquiry for InnoTots Preschool\n\nParent Name: ${formData.parentName}\nChild Name: ${formData.childName}\nChild Age: ${formData.childAge}\nProgram of Interest: ${formData.program}\nPhone: ${formData.phone}\nEmail: ${formData.email}\n\nMessage:\n${formData.message || 'No additional note provided.'}`;
+    const mailtoLink = `mailto:${school.email}?subject=Admission Enquiry – ${encodeURIComponent(formData.childName)}&body=${encodeURIComponent(body)}`;
+    
+    // Hand off to parent's email client
     window.location.href = mailtoLink;
     setSubmitted(true);
   };
 
-  const inputClass = `w-full px-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all`;
-  const inputStyle = { fontFamily: 'var(--font-nunito)', color: '#333' };
-  const labelStyle = { fontFamily: 'var(--font-nunito)', color: '#444', fontSize: '0.875rem', fontWeight: 600 };
-  const errorStyle = { fontFamily: 'var(--font-nunito)', color: '#FF3F68', fontSize: '0.75rem' };
-
   if (submitted) {
     return (
-      <div className="rounded-2xl p-10 text-center" style={{ backgroundColor: '#F0FAFA' }}>
-        <div className="text-5xl mb-4">🎉</div>
-        <h3 className="text-2xl font-semibold mb-3" style={{ fontFamily: 'var(--font-fredoka)', color: '#07194F' }}>
-          Enquiry Submitted!
+      <div className="bg-white rounded-3xl p-8 sm:p-12 text-center shadow-xs border border-gray-100 flex flex-col items-center justify-center">
+        <div className="w-16 h-16 rounded-2xl bg-[#FFF0F3] text-[#FF3F68] flex items-center justify-center mb-5 shadow-xs">
+          <CheckCircle2 size={36} />
+        </div>
+        <h3 className="text-2xl sm:text-3xl font-semibold mb-3 text-[#07194F]" style={{ fontFamily: 'var(--font-fredoka)' }}>
+          Enquiry Formatted
         </h3>
-        <p style={{ fontFamily: 'var(--font-nunito)', color: '#555' }}>
-          Your email client should open with your enquiry. We look forward to hearing from you!
+        <p className="text-sm sm:text-base text-gray-600 max-w-md mx-auto leading-relaxed mb-6" style={{ fontFamily: 'var(--font-nunito)' }}>
+          Your enquiry details have been prepared and handed off to your device&apos;s email client addressed to <strong className="text-[#07194F]">{school.email}</strong>. Please click send in your email application to deliver your message.
         </p>
+        <button
+          onClick={() => { setFormData(initialData); setSubmitted(false); }}
+          className="px-6 py-2.5 rounded-full text-xs font-bold text-[#FF3F68] bg-[#FFF0F3] hover:bg-[#FFE0E8] transition-colors cursor-pointer"
+          style={{ fontFamily: 'var(--font-nunito)' }}
+        >
+          Submit Another Enquiry
+        </button>
       </div>
     );
   }
 
+  const baseInput = "w-full px-4 py-3 rounded-2xl border bg-gray-50/50 text-sm text-[#07194F] placeholder-gray-400 focus:bg-white focus:outline-none focus:ring-3 focus:ring-[#FF3F68]/15 transition-all";
+  const labelClass = "block text-xs font-bold uppercase tracking-wider text-[#07194F] mb-1.5";
+
   return (
-    <form onSubmit={handleSubmit} noValidate className="rounded-2xl p-6 md:p-8 shadow-sm" style={{ backgroundColor: '#fff', border: '1px solid #DDF3F1' }}>
-      <h2 className="text-2xl font-semibold mb-6" style={{ fontFamily: 'var(--font-fredoka)', color: '#07194F' }}>
-        Admission Enquiry Form
-      </h2>
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xs border border-gray-100"
+    >
+      <div className="mb-8">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#FF3F68] bg-[#FFF0F3] px-3 py-1 rounded-full inline-block mb-2" style={{ fontFamily: 'var(--font-nunito)' }}>
+          Online Admissions
+        </span>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-[#07194F]" style={{ fontFamily: 'var(--font-fredoka)' }}>
+          Parent Enquiry Form
+        </h2>
+        <p className="text-xs sm:text-sm text-gray-500 mt-1" style={{ fontFamily: 'var(--font-nunito)' }}>
+          Fill in the details below. Submitted enquiries open directly in your mail application to send to our admissions desk.
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         {/* Parent Name */}
         <div>
-          <label htmlFor="parentName" className="block mb-1" style={labelStyle}>Parent Name <span style={{ color: '#FF3F68' }}>*</span></label>
+          <label htmlFor="parentName" className={labelClass} style={{ fontFamily: 'var(--font-nunito)' }}>
+            Parent Name <span className="text-[#FF3F68]">*</span>
+          </label>
           <input
             id="parentName"
             name="parentName"
             type="text"
             value={formData.parentName}
             onChange={handleChange}
-            className={inputClass}
-            style={{ ...inputStyle, borderColor: errors.parentName ? '#FF3F68' : '#ddd' }}
+            className={`${baseInput} ${errors.parentName ? 'border-[#FF3F68] bg-[#FFF0F3]/30' : 'border-gray-200'}`}
             placeholder="Your full name"
             aria-describedby={errors.parentName ? 'parentName-error' : undefined}
+            style={{ fontFamily: 'var(--font-nunito)' }}
           />
-          {errors.parentName && <p id="parentName-error" style={errorStyle} role="alert">{errors.parentName}</p>}
+          {errors.parentName && <p id="parentName-error" className="text-xs text-[#FF3F68] mt-1 font-semibold" role="alert">{errors.parentName}</p>}
         </div>
 
         {/* Child Name */}
         <div>
-          <label htmlFor="childName" className="block mb-1" style={labelStyle}>Child Name <span style={{ color: '#FF3F68' }}>*</span></label>
+          <label htmlFor="childName" className={labelClass} style={{ fontFamily: 'var(--font-nunito)' }}>
+            Child Name <span className="text-[#FF3F68]">*</span>
+          </label>
           <input
             id="childName"
             name="childName"
             type="text"
             value={formData.childName}
             onChange={handleChange}
-            className={inputClass}
-            style={{ ...inputStyle, borderColor: errors.childName ? '#FF3F68' : '#ddd' }}
+            className={`${baseInput} ${errors.childName ? 'border-[#FF3F68] bg-[#FFF0F3]/30' : 'border-gray-200'}`}
             placeholder="Child's full name"
             aria-describedby={errors.childName ? 'childName-error' : undefined}
+            style={{ fontFamily: 'var(--font-nunito)' }}
           />
-          {errors.childName && <p id="childName-error" style={errorStyle} role="alert">{errors.childName}</p>}
+          {errors.childName && <p id="childName-error" className="text-xs text-[#FF3F68] mt-1 font-semibold" role="alert">{errors.childName}</p>}
         </div>
 
-        {/* Child DOB */}
+        {/* Child Age */}
         <div>
-          <label htmlFor="childDob" className="block mb-1" style={labelStyle}>Child Date of Birth <span style={{ color: '#FF3F68' }}>*</span></label>
+          <label htmlFor="childAge" className={labelClass} style={{ fontFamily: 'var(--font-nunito)' }}>
+            Child Age <span className="text-[#FF3F68]">*</span>
+          </label>
           <input
-            id="childDob"
-            name="childDob"
-            type="date"
-            value={formData.childDob}
+            id="childAge"
+            name="childAge"
+            type="text"
+            value={formData.childAge}
             onChange={handleChange}
-            className={inputClass}
-            style={{ ...inputStyle, borderColor: errors.childDob ? '#FF3F68' : '#ddd' }}
-            aria-describedby={errors.childDob ? 'childDob-error' : undefined}
+            className={`${baseInput} ${errors.childAge ? 'border-[#FF3F68] bg-[#FFF0F3]/30' : 'border-gray-200'}`}
+            placeholder="e.g. 2.5 years or DD/MM/YYYY"
+            aria-describedby={errors.childAge ? 'childAge-error' : undefined}
+            style={{ fontFamily: 'var(--font-nunito)' }}
           />
-          {errors.childDob && <p id="childDob-error" style={errorStyle} role="alert">{errors.childDob}</p>}
+          {errors.childAge && <p id="childAge-error" className="text-xs text-[#FF3F68] mt-1 font-semibold" role="alert">{errors.childAge}</p>}
         </div>
 
-        {/* Program */}
+        {/* Interested Program */}
         <div>
-          <label htmlFor="program" className="block mb-1" style={labelStyle}>Program Interested In <span style={{ color: '#FF3F68' }}>*</span></label>
+          <label htmlFor="program" className={labelClass} style={{ fontFamily: 'var(--font-nunito)' }}>
+            Interested Program <span className="text-[#FF3F68]">*</span>
+          </label>
           <select
             id="program"
             name="program"
             value={formData.program}
             onChange={handleChange}
-            className={inputClass}
-            style={{ ...inputStyle, borderColor: errors.program ? '#FF3F68' : '#ddd' }}
+            className={`${baseInput} ${errors.program ? 'border-[#FF3F68] bg-[#FFF0F3]/30' : 'border-gray-200'}`}
             aria-describedby={errors.program ? 'program-error' : undefined}
+            style={{ fontFamily: 'var(--font-nunito)' }}
           >
-            <option value="">Select a program</option>
-            <option value="Playgroup">Playgroup (Age 1.5 – 2.5)</option>
-            <option value="Nursery">Nursery (Age 2.5 – 3.5)</option>
-            <option value="LKG">LKG (Age 3.5 – 4.5)</option>
-            <option value="UKG">UKG (Age 4.5 – 5.5)</option>
+            <option value="">Select a program...</option>
+            <option value="Playgroup">Playgroup (Age ~1.5 – 2.5)</option>
+            <option value="Nursery">Nursery (Age ~2.5 – 3.5)</option>
+            <option value="LKG">LKG (Age ~3.5 – 4.5)</option>
+            <option value="UKG">UKG (Age ~4.5 – 5.5)</option>
           </select>
-          {errors.program && <p id="program-error" style={errorStyle} role="alert">{errors.program}</p>}
+          {errors.program && <p id="program-error" className="text-xs text-[#FF3F68] mt-1 font-semibold" role="alert">{errors.program}</p>}
         </div>
 
-        {/* Phone */}
+        {/* Phone Number */}
         <div>
-          <label htmlFor="phone" className="block mb-1" style={labelStyle}>Phone Number <span style={{ color: '#FF3F68' }}>*</span></label>
+          <label htmlFor="phone" className={labelClass} style={{ fontFamily: 'var(--font-nunito)' }}>
+            Phone Number <span className="text-[#FF3F68]">*</span>
+          </label>
           <input
             id="phone"
             name="phone"
             type="tel"
             value={formData.phone}
             onChange={handleChange}
-            className={inputClass}
-            style={{ ...inputStyle, borderColor: errors.phone ? '#FF3F68' : '#ddd' }}
+            className={`${baseInput} ${errors.phone ? 'border-[#FF3F68] bg-[#FFF0F3]/30' : 'border-gray-200'}`}
             placeholder="10-digit mobile number"
             aria-describedby={errors.phone ? 'phone-error' : undefined}
+            style={{ fontFamily: 'var(--font-nunito)' }}
           />
-          {errors.phone && <p id="phone-error" style={errorStyle} role="alert">{errors.phone}</p>}
+          {errors.phone && <p id="phone-error" className="text-xs text-[#FF3F68] mt-1 font-semibold" role="alert">{errors.phone}</p>}
         </div>
 
-        {/* Email */}
+        {/* Email Address */}
         <div>
-          <label htmlFor="email" className="block mb-1" style={labelStyle}>Email Address <span style={{ color: '#FF3F68' }}>*</span></label>
+          <label htmlFor="email" className={labelClass} style={{ fontFamily: 'var(--font-nunito)' }}>
+            Email Address <span className="text-[#FF3F68]">*</span>
+          </label>
           <input
             id="email"
             name="email"
             type="email"
             value={formData.email}
             onChange={handleChange}
-            className={inputClass}
-            style={{ ...inputStyle, borderColor: errors.email ? '#FF3F68' : '#ddd' }}
-            placeholder="your@email.com"
+            className={`${baseInput} ${errors.email ? 'border-[#FF3F68] bg-[#FFF0F3]/30' : 'border-gray-200'}`}
+            placeholder="parent@example.com"
             aria-describedby={errors.email ? 'email-error' : undefined}
+            style={{ fontFamily: 'var(--font-nunito)' }}
           />
-          {errors.email && <p id="email-error" style={errorStyle} role="alert">{errors.email}</p>}
+          {errors.email && <p id="email-error" className="text-xs text-[#FF3F68] mt-1 font-semibold" role="alert">{errors.email}</p>}
         </div>
       </div>
 
       {/* Message */}
       <div className="mt-5">
-        <label htmlFor="message" className="block mb-1" style={labelStyle}>Message (Optional)</label>
+        <label htmlFor="message" className={labelClass} style={{ fontFamily: 'var(--font-nunito)' }}>
+          Message / Specific Questions (Optional)
+        </label>
         <textarea
           id="message"
           name="message"
           value={formData.message}
           onChange={handleChange}
-          rows={4}
-          className={inputClass}
-          style={{ ...inputStyle, borderColor: '#ddd', resize: 'none' }}
-          placeholder="Any questions or additional information..."
+          rows={3}
+          className={`${baseInput} border-gray-200 resize-none`}
+          placeholder="Any specific questions, preferred campus visit timing, etc."
+          style={{ fontFamily: 'var(--font-nunito)' }}
         />
       </div>
 
+      {/* Submit Button */}
       <button
         type="submit"
-        className="mt-6 w-full py-4 rounded-xl text-white font-semibold text-base transition-opacity hover:opacity-90"
+        className="mt-6 w-full py-4 rounded-full text-white font-bold text-base shadow-sm hover:shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
         style={{ backgroundColor: '#FF3F68', fontFamily: 'var(--font-nunito)' }}
       >
-        Send Enquiry
+        <Send size={18} />
+        <span>Submit Enquiry via Email</span>
       </button>
     </form>
   );

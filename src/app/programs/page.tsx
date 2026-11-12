@@ -20,19 +20,21 @@ export default function ProgramsPage() {
   return (
     <>
       <ProgramsHero />
-      <section className="py-16" style={{ backgroundColor: '#fff' }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      <section className="py-20 lg:py-24 bg-white relative">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           {programs.map((program, i) => (
             <ProgramCard key={program.id} program={program} reverse={i % 2 !== 0} />
           ))}
         </div>
       </section>
-      <WaveDivider color="#DDF3F1" />
+
+      <WaveDivider color="#F4FAF9" bgColor="#ffffff" />
       <ActivitiesSection />
-      <WaveDivider color="#ffffff" />
+      <WaveDivider color="#ffffff" bgColor="#F4FAF9" />
       <DailySchedule />
-      <WaveDivider color="#572A8D" />
+      <WaveDivider color="#572A8D" bgColor="#ffffff" />
       <AdmissionCTA />
+      <WaveDivider color="#DDF3F1" bgColor="#572A8D" />
     </>
   );
 }

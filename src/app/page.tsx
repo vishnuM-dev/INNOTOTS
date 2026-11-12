@@ -22,20 +22,20 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <WaveDivider color="#ffffff" flip />
       <WelcomeSection />
-      <WaveDivider color="#DDF3F1" />
+      <WaveDivider color="#F4FAF9" bgColor="#ffffff" />
       <LearningApproach />
-      <WaveDivider color="#DDF3F1" flip />
+      <WaveDivider color="#ffffff" bgColor="#F4FAF9" />
       <FeaturedPrograms />
-      <WaveDivider color="#ffffff" />
+      <WaveDivider color="#F4FAF9" bgColor="#ffffff" />
       <WhyChooseUs />
-      <WaveDivider color="#DDF3F1" />
+      <WaveDivider color="#ffffff" bgColor="#F4FAF9" />
       <SchoolEnvironment />
-      <WaveDivider color="#572A8D" />
+      <WaveDivider color="#572A8D" bgColor="#ffffff" />
       <AdmissionCTA />
-      <WaveDivider color="#ffffff" flip />
+      <WaveDivider color="#ffffff" bgColor="#572A8D" />
       <ContactPreview />
+      <WaveDivider color="#DDF3F1" bgColor="#ffffff" />
     </>
   );
 }

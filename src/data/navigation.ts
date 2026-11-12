@@ -5,5 +5,5 @@ export const navLinks: NavLink[] = [
   { label: 'About Us', href: '/about' },
   { label: 'Programs & Activities', href: '/programs' },
   { label: 'Gallery', href: '/gallery' },
-  { label: 'Admissions & Contact', href: '/admissions-contact' },
+  { label: 'Admissions Open', href: '/admissions-contact' },
 ];

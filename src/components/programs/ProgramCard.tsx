@@ -1,9 +1,8 @@
 import type { Program } from '@/types';
 import ImagePlaceholder from '@/components/ui/ImagePlaceholder';
-import Badge from '@/components/ui/Badge';
-import PlayfulButton from '@/components/animations/PlayfulButton';
+import Link from 'next/link';
 import ScrollReveal from '@/components/animations/ScrollReveal';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
 
 interface ProgramCardProps {
   program: Program;
@@ -12,58 +11,100 @@ interface ProgramCardProps {
 
 export default function ProgramCard({ program, reverse = false }: ProgramCardProps) {
   return (
-    <ScrollReveal>
+    <div id={program.id} className="scroll-mt-24 relative">
+      {/* Decorative background shape */}
       <div
-        className={`flex flex-col ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-10 items-center bg-white rounded-3xl p-8 shadow-sm`}
-        style={{ border: `2px solid ${program.color}20` }}
-      >
-        {/* Image */}
-        <div className="w-full lg:w-2/5 flex-shrink-0">
-          <div className="relative">
-            <ImagePlaceholder
-              label={program.name}
-              color={program.color + '20'}
-              height={320}
-              className="w-full"
-            />
-            <div
-              className="absolute top-4 left-4 px-3 py-1 rounded-full text-sm font-semibold text-white"
-              style={{ backgroundColor: program.color, fontFamily: 'var(--font-nunito)' }}
-            >
-              {program.name}
+        className={`hidden lg:block absolute -z-10 w-72 h-72 rounded-full pointer-events-none opacity-20 blur-2xl ${
+          reverse ? '-left-12 -top-8' : '-right-12 -bottom-8'
+        }`}
+        style={{ backgroundColor: program.color }}
+        aria-hidden="true"
+      />
+
+      <ScrollReveal>
+        <div
+          className={`flex flex-col ${
+            reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'
+          } gap-8 lg:gap-12 items-center bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xs hover:shadow-lg transition-all duration-300 border border-gray-100`}
+        >
+          {/* Large rounded image (5/12 cols) */}
+          <div className="w-full lg:w-5/12 flex-shrink-0">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xs">
+              <ImagePlaceholder
+                label={`${program.name} Learning & Play`}
+                category={program.name}
+                color={program.color + '18'}
+                height={330}
+                className="w-full"
+              />
+              <div
+                className="absolute top-4 left-4 px-3.5 py-1.5 rounded-full text-xs font-bold text-white shadow-xs"
+                style={{ backgroundColor: program.color, fontFamily: 'var(--font-nunito)' }}
+              >
+                {program.name} · {program.ageRange}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Content */}
-        <div className="flex-1">
-          <Badge color={program.color} className="mb-3">{program.ageRange}</Badge>
-          <h2 className="text-3xl font-semibold mb-2" style={{ fontFamily: 'var(--font-fredoka)', color: '#07194F' }}>
-            {program.name}
-          </h2>
-          <p className="text-sm font-semibold mb-4" style={{ color: program.color, fontFamily: 'var(--font-nunito)' }}>
-            {program.tagline}
-          </p>
-          <p className="text-base leading-relaxed mb-6" style={{ fontFamily: 'var(--font-nunito)', color: '#555' }}>
-            {program.description}
-          </p>
-          <ul className="space-y-2 mb-6">
-            {program.highlights.map((h) => (
-              <li key={h} className="flex items-center gap-3 text-sm" style={{ fontFamily: 'var(--font-nunito)', color: '#444' }}>
-                <CheckCircle size={16} style={{ color: program.color, flexShrink: 0 }} />
-                {h}
-              </li>
-            ))}
-          </ul>
-          <PlayfulButton
-            href="/admissions-contact"
-            className="inline-block px-6 py-3 rounded-full text-white font-semibold"
-            style={{ backgroundColor: program.color, fontFamily: 'var(--font-nunito)' }}
-          >
-            Enquire to Enrol
-          </PlayfulButton>
+          {/* Content (7/12 cols) */}
+          <div className="w-full lg:w-7/12 flex flex-col items-start">
+            <div className="flex items-center gap-2 mb-2">
+              <span
+                className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                style={{ backgroundColor: program.color + '18', color: program.color, fontFamily: 'var(--font-nunito)' }}
+              >
+                {program.ageRange}
+              </span>
+              <Sparkles size={14} style={{ color: program.color }} />
+            </div>
+
+            <h2
+              className="text-3xl sm:text-4xl font-semibold mb-2 text-[#07194F]"
+              style={{ fontFamily: 'var(--font-fredoka)' }}
+            >
+              {program.name}
+            </h2>
+
+            <p
+              className="text-sm font-bold mb-4"
+              style={{ color: program.color, fontFamily: 'var(--font-nunito)' }}
+            >
+              {program.tagline}
+            </p>
+
+            <p
+              className="text-base leading-relaxed text-gray-700 mb-6"
+              style={{ fontFamily: 'var(--font-nunito)' }}
+            >
+              {program.description}
+            </p>
+
+            {/* Key Learning Highlights */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full mb-8">
+              {program.highlights.map((h) => (
+                <div
+                  key={h}
+                  className="flex items-center gap-2.5 p-2.5 rounded-xl bg-gray-50 border border-gray-100/80 text-xs sm:text-sm font-semibold text-gray-700"
+                  style={{ fontFamily: 'var(--font-nunito)' }}
+                >
+                  <CheckCircle2 size={16} style={{ color: program.color }} className="flex-shrink-0" />
+                  <span>{h}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Enquire Now CTA Button */}
+            <Link
+              href="/admissions-contact"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-white font-bold text-sm shadow-sm hover:shadow-md hover:scale-105 active:scale-95 transition-all duration-200"
+              style={{ backgroundColor: program.color, fontFamily: 'var(--font-nunito)' }}
+            >
+              <span>Enquire Now</span>
+              <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
-      </div>
-    </ScrollReveal>
+      </ScrollReveal>
+    </div>
   );
 }
