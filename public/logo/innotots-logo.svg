@@ -1,0 +1,16 @@
+<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" width="200" height="60">
+  <!-- Star icon -->
+  <polygon points="20,5 23,15 33,15 25,21 28,31 20,25 12,31 15,21 7,15 17,15" fill="#FFBA08"/>
+  <circle cx="20" cy="18" r="6" fill="#FF3F68" opacity="0.3"/>
+  <!-- Small decorative dots -->
+  <circle cx="8" cy="8" r="2.5" fill="#08BFC1"/>
+  <circle cx="32" cy="8" r="2" fill="#A75CE2"/>
+  <circle cx="6" cy="30" r="1.8" fill="#FFBA08"/>
+  <!-- InnoTots text -->
+  <text x="42" y="26" font-family="Fredoka, Arial Rounded MT Bold, Arial, sans-serif" font-size="20" font-weight="600" fill="#07194F">Inno</text>
+  <text x="84" y="26" font-family="Fredoka, Arial Rounded MT Bold, Arial, sans-serif" font-size="20" font-weight="600" fill="#FF3F68">Tots</text>
+  <!-- Tagline -->
+  <text x="42" y="42" font-family="Nunito, Arial, sans-serif" font-size="9" fill="#572A8D" letter-spacing="1">P R E S C H O O L</text>
+  <!-- Underline accent -->
+  <rect x="42" y="45" width="110" height="2" rx="1" fill="#08BFC1"/>
+</svg>
