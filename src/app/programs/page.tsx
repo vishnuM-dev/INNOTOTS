@@ -20,8 +20,8 @@ export default function ProgramsPage() {
   return (
     <>
       <ProgramsHero />
-      <section className="py-20 lg:py-24 bg-white relative">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      <section className="py-12 sm:py-20 lg:py-24 bg-white relative">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-16">
           {programs.map((program, i) => (
             <ProgramCard key={program.id} program={program} reverse={i % 2 !== 0} />
           ))}

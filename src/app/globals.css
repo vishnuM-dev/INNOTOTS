@@ -21,11 +21,22 @@
   --font-nunito: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-nunito);
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+button, a, input, select, textarea {
+  touch-action: manipulation;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -45,19 +56,45 @@ nextjs-portal,
 
 /* Keyframe Animations */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-18px); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(1.5deg); }
+}
+
+@keyframes float-balloon-1 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-13px) rotate(2.5deg);
+  }
+}
+
+@keyframes float-balloon-2 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(-2deg);
+  }
+}
+
+@keyframes float-balloon-3 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-11px) rotate(1.8deg);
+  }
 }
 
 @keyframes drift {
-  0% { transform: translateX(-10px); }
-  50% { transform: translateX(10px); }
-  100% { transform: translateX(-10px); }
+  0%, 100% { transform: translateX(-10px) translateY(0); }
+  50% { transform: translateX(10px) translateY(-3px); }
 }
 
 @keyframes twinkle {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 0.4; transform: scale(0.82); }
 }
 
 @keyframes bounce-gentle {
@@ -71,15 +108,33 @@ nextjs-portal,
 }
 
 .animate-float {
-  animation: float 4s ease-in-out infinite;
+  animation: float 4.5s ease-in-out infinite;
+}
+
+.animate-balloon-1 {
+  animation: float-balloon-1 4.5s ease-in-out infinite;
+  transform-box: fill-box;
+}
+
+.animate-balloon-2 {
+  animation: float-balloon-2 5.2s ease-in-out infinite;
+  transform-box: fill-box;
+}
+
+.animate-balloon-3 {
+  animation: float-balloon-3 4.8s ease-in-out infinite;
+  transform-box: fill-box;
 }
 
 .animate-drift {
-  animation: drift 6s ease-in-out infinite;
+  animation: drift 7s ease-in-out infinite;
+  transform-box: fill-box;
 }
 
 .animate-twinkle {
-  animation: twinkle 2s ease-in-out infinite;
+  animation: twinkle 2.2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 .animate-bounce-gentle {

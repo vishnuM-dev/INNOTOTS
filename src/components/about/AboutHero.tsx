@@ -39,7 +39,7 @@ export default function AboutHero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl sm:text-5xl lg:text-6xl font-semibold mb-4 text-[#07194F] tracking-tight"
+          className="text-3xl sm:text-5xl lg:text-6xl font-semibold mb-4 text-[#07194F] tracking-tight"
           style={{ fontFamily: 'var(--font-fredoka)' }}
         >
           About InnoTots Preschool

@@ -48,7 +48,7 @@ export default function WelcomeSection() {
             <ScrollReveal>
               <div className="relative group">
                 {/* Cheerful Pink Mascot Peeking from top right */}
-                <div className="absolute -top-10 -left-6 z-20 pointer-events-auto">
+                <div className="absolute -top-10 -left-2 sm:-left-6 z-20 pointer-events-auto">
                   <PinkMascot size={64} />
                 </div>
 
@@ -66,7 +66,7 @@ export default function WelcomeSection() {
                 <motion.div
                   animate={{ y: [0, -4, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute -bottom-5 -right-3 sm:right-6 bg-white rounded-2xl p-4 shadow-lg border border-[#FF3F68]/15 flex items-center gap-3 z-10"
+                  className="absolute -bottom-5 right-1 sm:right-6 bg-white rounded-2xl p-3 sm:p-4 shadow-lg border border-[#FF3F68]/15 flex items-center gap-3 z-10"
                 >
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl bg-[#FFF0F3]">
                     🎈

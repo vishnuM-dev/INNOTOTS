@@ -82,7 +82,7 @@ export default function CoreValues() {
           {values.map((value, i) => (
             <ScrollReveal key={i} delay={i * 0.08}>
               <AnimatedCard
-                className="bg-white rounded-3xl p-7 h-full flex flex-col justify-between shadow-xs hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-[#FF3F68]/20 group"
+                className="bg-white rounded-3xl p-5 sm:p-7 h-full flex flex-col justify-between shadow-xs hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-[#FF3F68]/20 group"
               >
                 <div>
                   <div className="flex items-center gap-3.5 mb-4">

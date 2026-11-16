@@ -6,12 +6,14 @@ interface TealMascotProps {
   size?: number;
   className?: string;
   interactive?: boolean;
+  playfulJump?: boolean;
 }
 
 export default function TealMascot({
   size = 72,
   className = '',
   interactive = true,
+  playfulJump = true,
 }: TealMascotProps) {
   const height = size * 1.18;
 
@@ -20,19 +22,43 @@ export default function TealMascot({
       initial={{ opacity: 0, y: 15, scale: 0.9 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true }}
-      animate={{
-        y: [0, -7, 0],
-        rotate: [0, 2, -2, 0],
-      }}
+      animate={
+        playfulJump
+          ? {
+              y: [0, -5, 0, 0, -18, 2, 0],
+              scaleX: [1, 1, 1, 1.06, 0.92, 1.08, 1],
+              scaleY: [1, 1, 1, 0.94, 1.12, 0.92, 1],
+              rotate: [0, 2, -2, 0, 3, -1, 0],
+            }
+          : {
+              y: [0, -7, 0],
+              rotate: [0, 2, -2, 0],
+            }
+      }
       transition={{
         y: {
-          duration: 3.2,
+          duration: 5,
+          times: [0, 0.3, 0.55, 0.68, 0.8, 0.92, 1],
           repeat: Infinity,
           ease: 'easeInOut',
-          delay: 0.3,
+          delay: 0.2,
+        },
+        scaleX: {
+          duration: 5,
+          times: [0, 0.3, 0.55, 0.68, 0.8, 0.92, 1],
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 0.2,
+        },
+        scaleY: {
+          duration: 5,
+          times: [0, 0.3, 0.55, 0.68, 0.8, 0.92, 1],
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 0.2,
         },
         rotate: {
-          duration: 4,
+          duration: 5,
           repeat: Infinity,
           ease: 'easeInOut',
         },
@@ -42,17 +68,17 @@ export default function TealMascot({
       whileHover={
         interactive
           ? {
-              scale: 1.08,
+              scale: 1.1,
               y: -10,
-              rotate: 4,
+              rotate: [0, -4, 4, 0],
               transition: { type: 'spring', stiffness: 350, damping: 15 },
             }
           : undefined
       }
-      whileTap={interactive ? { scale: 0.95 } : undefined}
+      whileTap={interactive ? { scale: 0.94 } : undefined}
       className={`inline-block select-none ${interactive ? 'cursor-pointer' : 'pointer-events-none'} ${className}`}
-      style={{ width: size, height }}
-      aria-hidden="true"
+      style={{ width: size, height, transformOrigin: 'bottom center' }}
+      aria-label="InnoTots Teal Mascot"
     >
       <svg
         viewBox="0 0 100 118"
@@ -121,17 +147,17 @@ export default function TealMascot({
           style={{ transformOrigin: '38px 68px' }}
         />
 
-        {/* Animated Waving Right Arm */}
+        {/* Animated Waving Right Arm - natural 2s waving sequence */}
         <motion.g
           animate={{
-            rotate: [0, 16, 0, 16, 0],
+            rotate: [0, 18, -4, 18, -4, 18, 0],
           }}
           transition={{
-            duration: 1.8,
+            duration: 2,
             repeat: Infinity,
-            repeatDelay: 2.5,
+            repeatDelay: 3.5,
             ease: 'easeInOut',
-            delay: 0.5,
+            delay: 0.6,
           }}
           style={{ transformOrigin: '62px 68px' }}
         >
@@ -147,4 +173,3 @@ export default function TealMascot({
     </motion.div>
   );
 }
-

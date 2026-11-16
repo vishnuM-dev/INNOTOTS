@@ -31,7 +31,7 @@ export default function SectionHeading({
         </div>
       )}
       <h2
-        className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight mb-3"
+        className="text-2xl sm:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight mb-3"
         style={{ fontFamily: 'var(--font-fredoka)', color }}
       >
         {title}

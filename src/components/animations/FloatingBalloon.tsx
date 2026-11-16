@@ -1,40 +1,66 @@
+'use client';
+
 interface FloatingBalloonProps {
   color?: string;
   delay?: number;
   duration?: number;
   size?: number;
   className?: string;
+  swayVariant?: 1 | 2 | 3;
 }
 
-const colors = ['#FF3F68', '#FFBA08', '#08BFC1', '#A75CE2'];
+const defaultColors = ['#FF3F68', '#FFBA08', '#08BFC1', '#A75CE2'];
 
 export default function FloatingBalloon({
   color,
   delay = 0,
-  duration = 4,
-  size = 32,
+  duration = 5,
+  size = 36,
   className = '',
+  swayVariant = 1,
 }: FloatingBalloonProps) {
-  const balloonColor = color || colors[Math.floor(Math.random() * colors.length)];
+  const balloonColor = color || defaultColors[0];
+  const animName = `float-balloon-${swayVariant}`;
+  const heightRatio = 86 / 44; // Proportional balloon + string viewBox ratio
 
   return (
     <div
-      className={`inline-block ${className}`}
+      className={`inline-block select-none pointer-events-none ${className}`}
       style={{
-        animationName: 'float',
+        animationName: animName,
         animationDuration: `${duration}s`,
         animationDelay: `${delay}s`,
         animationTimingFunction: 'ease-in-out',
         animationIterationCount: 'infinite',
+        transformOrigin: '50% 100%',
         width: size,
-        height: size * 1.3,
+        height: size * heightRatio,
       }}
+      aria-hidden="true"
     >
-      <svg viewBox="0 0 40 55" xmlns="http://www.w3.org/2000/svg" width={size} height={size * 1.3}>
-        <ellipse cx="20" cy="20" rx="16" ry="18" fill={balloonColor} />
-        <ellipse cx="14" cy="12" rx="4" ry="5" fill="white" opacity="0.3" />
-        <line x1="20" y1="38" x2="20" y2="55" stroke={balloonColor} strokeWidth="1.5" />
-        <path d="M18,38 Q22,42 20,46 Q18,42 22,38" fill={balloonColor} opacity="0.6" />
+      <svg
+        viewBox="0 0 44 86"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-full overflow-visible drop-shadow-xs"
+      >
+        {/* Balloon Body */}
+        <ellipse cx="22" cy="22" rx="17" ry="20" fill={balloonColor} />
+
+        {/* Glossy Balloon Highlight */}
+        <ellipse cx="16" cy="15" rx="5" ry="7" fill="white" opacity="0.32" />
+
+        {/* Balloon Knot securely attached at bottom center (22, 42) */}
+        <polygon points="19,45 25,45 22,42" fill={balloonColor} />
+
+        {/* Natural Balloon String attached seamlessly to knot base */}
+        <path
+          d="M22,45 C20,56 25,68 22,84"
+          fill="none"
+          stroke={balloonColor}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          opacity="0.7"
+        />
       </svg>
     </div>
   );

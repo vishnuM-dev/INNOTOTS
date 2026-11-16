@@ -59,7 +59,7 @@ export default function AdmissionsContactPage() {
                 href={school.mapLink !== '#' ? school.mapLink : `https://maps.google.com/?q=${encodeURIComponent(school.name + ' ' + school.address)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-white font-bold text-sm shadow-sm hover:shadow-md hover:scale-105 active:scale-95 transition-all flex-shrink-0"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-white font-bold text-sm shadow-sm hover:shadow-md hover:scale-105 active:scale-95 transition-all flex-shrink-0 text-center"
                 style={{ backgroundColor: '#08BFC1', fontFamily: 'var(--font-nunito)' }}
               >
                 <Navigation size={16} />

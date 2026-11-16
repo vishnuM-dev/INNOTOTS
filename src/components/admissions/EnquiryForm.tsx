@@ -101,14 +101,14 @@ export default function EnquiryForm() {
     );
   }
 
-  const baseInput = "w-full px-4 py-3 rounded-2xl border bg-gray-50/50 text-sm text-[#07194F] placeholder-gray-400 focus:bg-white focus:outline-none focus:ring-3 focus:ring-[#FF3F68]/15 transition-all";
+  const baseInput = "w-full px-4 py-3 rounded-2xl border bg-gray-50/50 text-base sm:text-sm text-[#07194F] placeholder-gray-400 focus:bg-white focus:outline-none focus:ring-3 focus:ring-[#FF3F68]/15 transition-all";
   const labelClass = "block text-xs font-bold uppercase tracking-wider text-[#07194F] mb-1.5";
 
   return (
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xs border border-gray-100"
+      className="bg-white rounded-3xl p-5 sm:p-8 lg:p-10 shadow-xs border border-gray-100"
     >
       <div className="mb-8">
         <span className="text-xs font-bold uppercase tracking-wider text-[#FF3F68] bg-[#FFF0F3] px-3 py-1 rounded-full inline-block mb-2" style={{ fontFamily: 'var(--font-nunito)' }}>

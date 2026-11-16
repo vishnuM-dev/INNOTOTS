@@ -24,7 +24,7 @@ export default function VisionMission() {
           {/* Vision */}
           <ScrollReveal delay={0.1}>
             <div
-              className="rounded-3xl p-8 sm:p-10 h-full flex flex-col justify-between border-2 border-[#08BFC1]/20 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden group"
+              className="rounded-3xl p-6 sm:p-10 h-full flex flex-col justify-between border-2 border-[#08BFC1]/20 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden group"
               style={{ background: 'linear-gradient(135deg, #F0FAFA 0%, #E6F7F5 100%)' }}
             >
               {/* Subtle Glowing Growing Star in Background */}
@@ -63,7 +63,7 @@ export default function VisionMission() {
           {/* Mission */}
           <ScrollReveal delay={0.2}>
             <div
-              className="rounded-3xl p-8 sm:p-10 h-full flex flex-col justify-between border-2 border-[#FF3F68]/20 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden group"
+              className="rounded-3xl p-6 sm:p-10 h-full flex flex-col justify-between border-2 border-[#FF3F68]/20 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden group"
               style={{ background: 'linear-gradient(135deg, #FFF0F3 0%, #FFE5EB 100%)' }}
             >
               {/* Subtle Gentle Open Book in Background */}

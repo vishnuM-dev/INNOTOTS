@@ -64,7 +64,7 @@ const activities = [
 
 export default function ActivitiesSection() {
   return (
-    <section className="py-20 lg:py-24 bg-[#F4FAF9] relative">
+    <section className="py-14 sm:py-20 lg:py-24 bg-[#F4FAF9] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <ScrollReveal>
           <SectionHeading
@@ -77,11 +77,11 @@ export default function ActivitiesSection() {
           />
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-8 sm:mt-12">
           {activities.map((activity, i) => (
             <ScrollReveal key={i} delay={i * 0.06}>
               <AnimatedCard
-                className="bg-white rounded-3xl p-6 h-full flex flex-col justify-between shadow-xs hover:shadow-md transition-all duration-300 border border-gray-100"
+                className="bg-white rounded-3xl p-5 sm:p-6 h-full flex flex-col justify-between shadow-xs hover:shadow-md transition-all duration-300 border border-gray-100"
               >
                 <div>
                   <div

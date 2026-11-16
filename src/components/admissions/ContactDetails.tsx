@@ -3,7 +3,7 @@ import { school } from '@/data/school';
 
 export default function ContactDetails() {
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xs border border-gray-100 h-full flex flex-col justify-between">
+    <div className="bg-white rounded-3xl p-5 sm:p-8 lg:p-10 shadow-xs border border-gray-100 h-full flex flex-col justify-between">
       <div>
         <div className="mb-8">
           <span className="text-xs font-bold uppercase tracking-wider text-[#08BFC1] bg-[#F0FAFA] px-3 py-1 rounded-full inline-block mb-2" style={{ fontFamily: 'var(--font-nunito)' }}>

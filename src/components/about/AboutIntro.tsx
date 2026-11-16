@@ -17,7 +17,7 @@ export default function AboutIntro() {
             <ScrollReveal>
               <div className="relative group">
                 {/* Cheerful Mascots Peeking from top */}
-                <div className="absolute -top-12 -left-4 z-20 pointer-events-auto">
+                <div className="absolute -top-12 left-0 sm:-left-4 z-20 pointer-events-auto">
                   <MascotPair size={58} badgeText="Welcome!" />
                 </div>
 
@@ -31,7 +31,7 @@ export default function AboutIntro() {
                   />
                 </div>
 
-                <div className="absolute -bottom-4 -right-2 sm:right-4 bg-white rounded-2xl p-4 shadow-lg border border-[#FF3F68]/15 flex items-center gap-3">
+                <div className="absolute -bottom-4 right-1 sm:right-4 bg-white rounded-2xl p-3 sm:p-4 shadow-lg border border-[#FF3F68]/15 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-[#FFF0F3] text-[#FF3F68] flex items-center justify-center">
                     <Heart size={20} />
                   </div>

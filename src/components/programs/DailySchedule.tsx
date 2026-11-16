@@ -31,47 +31,78 @@ export default function DailySchedule() {
           />
         </ScrollReveal>
 
-        <div className="mt-2 mb-10 p-4 rounded-2xl bg-[#FFF0F3] border border-[#FF3F68]/20 flex items-center justify-center gap-2.5 text-xs sm:text-sm text-[#FF3F68] font-bold text-center" style={{ fontFamily: 'var(--font-nunito)' }}>
+        <div
+          className="mt-2 mb-8 sm:mb-10 p-3 sm:p-4 rounded-2xl bg-[#FFF0F3] border border-[#FF3F68]/20 flex items-center justify-center gap-2 sm:gap-2.5 text-xs sm:text-sm text-[#FF3F68] font-bold text-center"
+          style={{ fontFamily: 'var(--font-nunito)' }}
+        >
           <Info size={18} className="flex-shrink-0" />
           <span>Note: Illustrative daily routine; specific timings are gently adapted per program age tier.</span>
         </div>
 
         {/* Animated Vertical Timeline */}
-        <div className="relative pl-6 sm:pl-8 space-y-4">
-          {/* Connecting Vertical Track */}
+        <div className="relative space-y-4 sm:space-y-5">
+          {/* Subtle Background Guide Track - Perfectly Centered on Dot Column */}
+          <div
+            className="absolute left-[18px] sm:left-[24px] top-6 sm:top-8 bottom-6 sm:bottom-8 w-1 -translate-x-1/2 rounded-full bg-gray-100"
+            aria-hidden="true"
+          />
+
+          {/* Connecting Animated Gradient Track - Drawn Smoothly on Scroll */}
           <motion.div
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: 'easeInOut' }}
-            className="absolute left-2.5 sm:left-3.5 top-6 bottom-6 w-1 rounded-full origin-top"
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+            className="absolute left-[18px] sm:left-[24px] top-6 sm:top-8 bottom-6 sm:bottom-8 w-1 -translate-x-1/2 rounded-full origin-top z-0"
             style={{
-              background: 'linear-gradient(180deg, #FF3F68 0%, #FFBA08 30%, #08BFC1 70%, #A75CE2 100%)',
+              background: 'linear-gradient(180deg, #FF3F68 0%, #FFBA08 25%, #08BFC1 50%, #A75CE2 75%, #572A8D 100%)',
             }}
+            aria-hidden="true"
           />
 
           {scheduleItems.map((item, i) => (
-            <ScrollReveal key={i} delay={i * 0.05}>
-              <div className="relative group">
-                {/* Timeline Step Dot Indicator */}
-                <div
-                  className="absolute -left-6 sm:-left-8 top-5 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-white shadow-xs z-10 transition-transform group-hover:scale-125"
-                  style={{ backgroundColor: item.color }}
-                />
+            <ScrollReveal key={i} delay={i * 0.04}>
+              <div className="relative flex items-center gap-3.5 sm:gap-5 group">
+                {/* Timeline Step Dot Indicator - Mathematically Centered on Track */}
+                <div className="w-9 sm:w-12 flex-shrink-0 flex items-center justify-center relative z-10">
+                  <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 450,
+                      damping: 24,
+                      delay: i * 0.05 + 0.15,
+                    }}
+                    className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 sm:border-[3px] border-white shadow-xs transition-transform duration-200 group-hover:scale-125 relative flex items-center justify-center"
+                    style={{ backgroundColor: item.color }}
+                  >
+                    {/* Glowing halo on hover */}
+                    <span
+                      className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-35 transition-opacity duration-300 pointer-events-none"
+                      style={{ backgroundColor: item.color }}
+                    />
+                  </motion.div>
+                </div>
 
+                {/* Card Container */}
                 <motion.div
-                  whileHover={{ scale: 1.01, x: 4 }}
+                  whileHover={{ scale: 1.01, x: 5 }}
                   transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-                  className="flex flex-col sm:flex-row sm:items-center gap-4 bg-white rounded-2xl p-4 sm:p-5 shadow-xs hover:shadow-md transition-all duration-200 border border-gray-100 hover:border-[#FF3F68]/20"
+                  className="flex-1 flex flex-col sm:flex-row sm:items-center gap-3.5 sm:gap-4 bg-white rounded-2xl p-3.5 sm:p-5 shadow-xs hover:shadow-md transition-all duration-200 border border-gray-100 hover:border-[#FF3F68]/25"
                 >
+                  {/* Time Badge - Horizontally Aligned with Dot */}
                   <div
-                    className="flex-shrink-0 w-24 h-11 rounded-xl flex items-center justify-center text-white text-xs font-bold shadow-xs group-hover:scale-105 transition-transform"
+                    className="flex-shrink-0 w-24 sm:w-26 h-10 sm:h-11 rounded-xl flex items-center justify-center text-white text-xs font-bold shadow-xs group-hover:scale-105 transition-transform"
                     style={{ backgroundColor: item.color, fontFamily: 'var(--font-nunito)' }}
                   >
-                    <Clock size={13} className="mr-1.5 opacity-80" />
+                    <Clock size={13} className="mr-1.5 opacity-85" />
                     <span>{item.time}</span>
                   </div>
-                  <div className="flex-1">
+
+                  {/* Activity Details */}
+                  <div className="flex-1 min-w-0">
                     <h3
                       className="font-semibold text-base sm:text-lg text-[#07194F] group-hover:text-[#FF3F68] transition-colors mb-0.5"
                       style={{ fontFamily: 'var(--font-fredoka)' }}
