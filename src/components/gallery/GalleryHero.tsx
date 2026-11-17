@@ -4,11 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 import { Home, Heart } from 'lucide-react';
+import { Butterfly } from '@/components/animations/FlyingButterflies';
+import { CuteBird } from '@/components/animations/FlyingBirds';
 
 export default function GalleryHero() {
   return (
     <section
-      className="relative overflow-hidden pt-8 pb-16 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24"
+      className="relative overflow-hidden pt-8 pb-16 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24 select-none"
       style={{ backgroundColor: '#FFF9F2' }}
     >
       {/* Background Decorative Ambient Shapes */}
@@ -20,6 +22,14 @@ export default function GalleryHero() {
         className="absolute top-10 right-[15%] w-64 h-64 rounded-full bg-[#DDF5EC]/40 blur-3xl pointer-events-none -z-10"
         aria-hidden="true"
       />
+
+      {/* Fluttering Butterflies & Birds */}
+      <div className="absolute top-6 left-1/4 pointer-events-auto">
+        <Butterfly color="#FF3F68" size={26} duration={11} />
+      </div>
+      <div className="absolute top-12 right-1/4 pointer-events-auto hidden sm:block">
+        <CuteBird bodyColor="#FFBA08" wingColor="#08BFC1" size={36} duration={15} />
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center">
@@ -61,8 +71,10 @@ export default function GalleryHero() {
             <motion.div
               initial={{ opacity: 0, x: -30, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-48 sm:w-56 lg:w-64 flex justify-center"
+              className="relative w-48 sm:w-56 lg:w-64 flex justify-center cursor-pointer"
             >
               {/* Pink Hand-Drawn Splash / Action Marks */}
               <motion.div
@@ -200,8 +212,10 @@ export default function GalleryHero() {
             <motion.div
               initial={{ opacity: 0, x: 30, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-48 sm:w-56 lg:w-64 flex justify-center"
+              className="relative w-48 sm:w-56 lg:w-64 flex justify-center cursor-pointer"
             >
               {/* Golden Crown above Girl's head */}
               <motion.div

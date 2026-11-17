@@ -19,7 +19,7 @@ export default function AnimatedRainbow({
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
-      className={`inline-block select-none pointer-events-none ${className}`}
+      className={`inline-block select-none pointer-events-none relative ${className}`}
       style={{ width, height }}
       aria-hidden="true"
     >
@@ -29,6 +29,14 @@ export default function AnimatedRainbow({
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-full overflow-visible"
       >
+        <defs>
+          <linearGradient id="shimmerRainbow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+            <stop offset="50%" stopColor="#ffffff" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+
         {/* Coral Pink Arc */}
         <motion.path
           d="M30 130 C30 50, 210 50, 210 130"
@@ -74,6 +82,24 @@ export default function AnimatedRainbow({
           transition={{ duration: 1, delay: 0.45, ease: 'easeInOut' }}
         />
 
+        {/* Shimmer overlay sweep */}
+        <motion.path
+          d="M30 130 C30 50, 210 50, 210 130"
+          stroke="url(#shimmerRainbow)"
+          strokeWidth="14"
+          strokeLinecap="round"
+          strokeDasharray="60 280"
+          animate={{
+            strokeDashoffset: [340, -340],
+          }}
+          transition={{
+            duration: 3.5,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+          opacity={0.65}
+        />
+
         {/* Clouds at base */}
         <motion.g
           animate={{ x: [-2, 2, -2] }}
@@ -96,4 +122,3 @@ export default function AnimatedRainbow({
     </motion.div>
   );
 }
-

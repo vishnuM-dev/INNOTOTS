@@ -12,9 +12,12 @@ interface AnimatedCardProps {
 export default function AnimatedCard({ children, className = '', style }: AnimatedCardProps) {
   return (
     <motion.div
-      whileHover={{ scale: 1.03, boxShadow: '0 8px 30px rgba(0,0,0,0.12)' }}
-      whileTap={{ scale: 0.97 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      whileHover={{
+        y: -6,
+        scale: 1.02,
+        transition: { type: 'spring', stiffness: 350, damping: 22 },
+      }}
+      whileTap={{ scale: 0.98 }}
       className={className}
       style={style}
     >

@@ -1,7 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'motion/react';
-import { Heart, Palette, Compass, Star, Users, Smile } from 'lucide-react';
+import { Heart, Palette, Compass, Star, Users, Smile, Sparkles } from 'lucide-react';
 import AnimatedCard from '@/components/animations/AnimatedCard';
 import SectionHeading from '@/components/ui/SectionHeading';
 import ScrollReveal from '@/components/animations/ScrollReveal';
@@ -13,6 +14,7 @@ const values = [
     color: '#FF3F68',
     bg: '#FFF0F3',
     icon: Heart,
+    emoji: '💖',
     anim: { scale: [1, 1.22, 1] },
     transition: { duration: 1.8, repeat: Infinity, ease: 'easeInOut' as const },
   },
@@ -22,6 +24,7 @@ const values = [
     color: '#A75CE2',
     bg: '#F7F0FD',
     icon: Palette,
+    emoji: '🎨',
     anim: { rotate: [-8, 8, -8] },
     transition: { duration: 2.2, repeat: Infinity, ease: 'easeInOut' as const },
   },
@@ -31,6 +34,7 @@ const values = [
     color: '#FFBA08',
     bg: '#FFFBEC',
     icon: Compass,
+    emoji: '🔍',
     anim: { y: [0, -6, 0] },
     transition: { duration: 2, repeat: Infinity, ease: 'easeInOut' as const },
   },
@@ -40,6 +44,7 @@ const values = [
     color: '#08BFC1',
     bg: '#F0FAFA',
     icon: Star,
+    emoji: '⭐',
     anim: { scale: [1, 1.18, 1], rotate: [0, 20, 0] },
     transition: { duration: 2.5, repeat: Infinity, ease: 'easeInOut' as const },
   },
@@ -49,6 +54,7 @@ const values = [
     color: '#07194F',
     bg: '#EEF0F8',
     icon: Users,
+    emoji: '🤝',
     anim: { x: [-3, 3, -3] },
     transition: { duration: 2.4, repeat: Infinity, ease: 'easeInOut' as const },
   },
@@ -58,6 +64,7 @@ const values = [
     color: '#572A8D',
     bg: '#F4EFF9',
     icon: Smile,
+    emoji: '🎉',
     anim: { rotate: [0, 12, -12, 0], scale: [1, 1.15, 1] },
     transition: { duration: 2.8, repeat: Infinity, ease: 'easeInOut' as const },
   },
@@ -65,7 +72,7 @@ const values = [
 
 export default function CoreValues() {
   return (
-    <section className="py-20 lg:py-24 bg-[#F4FAF9] relative">
+    <section className="py-20 lg:py-24 bg-[#F4FAF9] relative select-none">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <ScrollReveal>
           <SectionHeading
@@ -78,26 +85,57 @@ export default function CoreValues() {
           />
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+        {/* 3D Storybook Showcase: Animal Friends Around Glowing Heart */}
+        <ScrollReveal delay={0.08}>
+          <div className="mt-8 mb-12 max-w-2xl mx-auto relative group">
+            <div className="relative rounded-3xl overflow-hidden shadow-md border-4 border-white bg-gradient-to-b from-[#F0FAFA] to-white group-hover:scale-[1.01] transition-transform duration-500">
+              <Image
+                src="/images/about-values-3d.png"
+                alt="3D cartoon animal friends elephant, lion cub, bunny and bluebird sitting around a glowing heart"
+                width={700}
+                height={350}
+                className="w-full h-48 sm:h-64 object-cover select-none pointer-events-none"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+
+              {/* Floating Badge */}
+              <motion.div
+                animate={{ y: [0, -4, 0] }}
+                transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute bottom-3 left-4 bg-white/95 backdrop-blur-xs px-3.5 py-1.5 rounded-full shadow-xs text-xs font-bold text-[#FF3F68] flex items-center gap-1.5 z-10"
+                style={{ fontFamily: 'var(--font-nunito)' }}
+              >
+                <Heart size={15} fill="#FF3F68" />
+                <span>Nurtured with Love & Togetherness</span>
+              </motion.div>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {values.map((value, i) => (
             <ScrollReveal key={i} delay={i * 0.08}>
               <AnimatedCard
-                className="bg-white rounded-3xl p-5 sm:p-7 h-full flex flex-col justify-between shadow-xs hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-[#FF3F68]/20 group"
+                className="bg-white rounded-3xl p-5 sm:p-7 h-full flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#FF3F68]/20 group"
               >
                 <div>
-                  <div className="flex items-center gap-3.5 mb-4">
-                    <div
-                      className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-xs flex-shrink-0"
-                      style={{ backgroundColor: value.bg, color: value.color }}
-                    >
-                      <motion.div animate={value.anim} transition={value.transition}>
-                        <value.icon size={26} />
-                      </motion.div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3.5">
+                      <div
+                        className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-xs flex-shrink-0"
+                        style={{ backgroundColor: value.bg, color: value.color }}
+                      >
+                        <motion.div animate={value.anim} transition={value.transition}>
+                          <value.icon size={26} />
+                        </motion.div>
+                      </div>
+                      <h3 className="text-xl font-semibold text-[#07194F] group-hover:text-[#FF3F68] transition-colors" style={{ fontFamily: 'var(--font-fredoka)' }}>
+                        {value.title}
+                      </h3>
                     </div>
-                    <h3 className="text-xl font-semibold text-[#07194F] group-hover:text-[#FF3F68] transition-colors" style={{ fontFamily: 'var(--font-fredoka)' }}>
-                      {value.title}
-                    </h3>
+                    <span className="text-xl select-none group-hover:scale-125 transition-transform">{value.emoji}</span>
                   </div>
+
                   <p className="text-sm leading-relaxed text-gray-600" style={{ fontFamily: 'var(--font-nunito)' }}>
                     {value.description}
                   </p>

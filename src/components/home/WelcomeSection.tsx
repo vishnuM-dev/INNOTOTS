@@ -1,10 +1,12 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'motion/react';
 import ScrollReveal from '@/components/animations/ScrollReveal';
-import ImagePlaceholder from '@/components/ui/ImagePlaceholder';
 import SectionHeading from '@/components/ui/SectionHeading';
 import PinkMascot from '@/components/animations/PinkMascot';
+import { Butterfly } from '@/components/animations/FlyingButterflies';
+import { CuteBird } from '@/components/animations/FlyingBirds';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2, HeartHandshake, Shield, Sparkles, Heart } from 'lucide-react';
 
@@ -17,7 +19,7 @@ const keyPoints = [
 
 export default function WelcomeSection() {
   return (
-    <section className="py-20 lg:py-24 relative overflow-hidden bg-white">
+    <section className="py-20 lg:py-24 relative overflow-hidden bg-white select-none">
       {/* Organic blob shape in background */}
       <div
         className="absolute -left-28 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full pointer-events-none"
@@ -41,30 +43,43 @@ export default function WelcomeSection() {
         <Heart size={16} fill="#08BFC1" />
       </motion.div>
 
+      {/* Gentle Floating Bird near Section Title */}
+      <div className="absolute top-12 right-8 hidden lg:block pointer-events-auto">
+        <CuteBird bodyColor="#FFBA08" wingColor="#FF3F68" size={36} duration={14} />
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left: Image Card (5 cols) */}
+          {/* Left: 3D Playground & Schoolhouse Illustration Card (5 cols) */}
           <div className="lg:col-span-5">
             <ScrollReveal>
               <div className="relative group">
-                {/* Cheerful Pink Mascot Peeking from top right */}
+                {/* Cheerful Pink Mascot Peeking from top left */}
                 <div className="absolute -top-10 -left-2 sm:-left-6 z-20 pointer-events-auto">
                   <PinkMascot size={64} />
                 </div>
 
-                <div className="transition-transform duration-300 group-hover:scale-[1.02]">
-                  <ImagePlaceholder
-                    label="Joyful Learning & Play at InnoTots"
-                    category="Campus Life"
-                    color="#DDF3F1"
-                    height={420}
-                    className="shadow-md border-4 border-white"
+                {/* Fluttering Teal Butterfly */}
+                <div className="absolute -top-4 right-8 z-30 pointer-events-auto">
+                  <Butterfly color="#08BFC1" size={24} duration={8} />
+                </div>
+
+                {/* 3D Preschool Playground & Building Image */}
+                <div className="relative rounded-3xl overflow-hidden shadow-lg border-4 border-white bg-gradient-to-b from-[#F0FAFA] to-white transition-transform duration-300 group-hover:scale-[1.02]">
+                  <Image
+                    src="/images/preschool-playground-3d.png"
+                    alt="InnoTots Preschool 3D Cartoon Playground and Building with Slide, Swings, Giraffe and Bunny"
+                    width={800}
+                    height={600}
+                    className="w-full h-auto object-cover select-none pointer-events-none"
                   />
+                  {/* Subtle Shimmer Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
                 </div>
 
                 {/* Floating sticker badge */}
                 <motion.div
-                  animate={{ y: [0, -4, 0] }}
+                  animate={{ y: [0, -6, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                   className="absolute -bottom-5 right-1 sm:right-6 bg-white rounded-2xl p-3 sm:p-4 shadow-lg border border-[#FF3F68]/15 flex items-center gap-3 z-10"
                 >
@@ -105,7 +120,7 @@ export default function WelcomeSection() {
 
               {/* Key Highlights Grid with Hover Lift */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-                {keyPoints.map((item, idx) => (
+                {keyPoints.map((item) => (
                   <motion.div
                     key={item.text}
                     whileHover={{ scale: 1.03, y: -2 }}
